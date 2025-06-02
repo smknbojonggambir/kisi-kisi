@@ -226,7 +226,7 @@
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Kata Sandi</label>
-        <input type="password" class="form-control" id="password" placeholder="Masukkan kata sandi" required />
+        <input type="password" class="form-control" id="password" placeholder="Masukkan kata sandi (12345)" required />
       </div>
       <div class="d-grid mt-4">
         <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>Masuk</button>
@@ -272,7 +272,7 @@
       <div id="accessGrantedMessage" class="hidden fade-in">
         <i class="fas fa-check-circle"></i> Terima kasih telah membaca. Akses selanjutnya telah diberikan!
         <div class="mt-3">
-           <button class="btn btn-info" onclick="window.location.href='https://www.kangruli.web.id/'"><i class="fas fa-arrow-right"></i> Lanjutkan ke Tahap Berikutnya</button>
+            <button class="btn btn-info" onclick="window.location.href='https://www.kangruli.web.id/'"><i class="fas fa-arrow-right"></i> Lanjutkan ke Tahap Berikutnya</button>
         </div>
       </div>
     </div>
@@ -292,30 +292,28 @@
   const kisiForm = document.getElementById("kisiForm");
   const mapelSelect = document.getElementById("mapel");
   const kisiContentContainer = document.getElementById("kisiContentContainer");
-  const accessGrantedMessage = document.getElementById("accessGrantedMessage"); // Elemen baru
+  const accessGrantedMessage = document.getElementById("accessGrantedMessage");
 
-  const validUsers = {
-    "ruli": "12345",
-    "guru": "guru123",
-    "admin": "adminpass"
-  };
-
-  let hasScrolledToEnd = false; // Flag untuk memastikan pesan hanya muncul sekali per tampilan kisi-kisi
+  let hasScrolledToEnd = false;
 
   loginForm.addEventListener("submit", function(e) {
     e.preventDefault();
     const username = usernameInput.value.trim();
     const password = passwordInput.value;
 
-    if (validUsers[username.toLowerCase()] === password) {
+    // Logika login baru: nama pengguna bebas, password harus "12345"
+    if (username && password === "12345") {
       loginAlert.classList.add("d-none");
-      userGreetingElement.textContent = `Halo, ${username}!`;
+      userGreetingElement.textContent = `Halo, ${username || 'Pengguna'}!`;
       loginCard.classList.add("hidden");
       mainContent.classList.remove("hidden");
       mainContent.classList.add("fade-in");
-      passwordInput.value = "";
+      passwordInput.value = ""; 
+    } else if (!username) {
+      loginAlert.textContent = "Nama pengguna tidak boleh kosong.";
+      loginAlert.classList.remove("d-none");
     } else {
-      loginAlert.textContent = "Nama pengguna atau kata sandi salah. Silakan coba lagi.";
+      loginAlert.textContent = "Kata sandi salah. Silakan coba lagi.";
       loginAlert.classList.remove("d-none");
     }
   });
@@ -327,20 +325,22 @@
     loginCard.classList.add("fade-in");
     kisiContentContainer.innerHTML = "";
     mapelSelect.value = "";
-    passwordInput.value = "";
+    passwordInput.value = ""; // Kosongkan field password juga saat logout
     loginAlert.classList.add("d-none");
-    accessGrantedMessage.classList.add("hidden"); // Sembunyikan pesan saat logout
-    hasScrolledToEnd = false; // Reset flag
+    accessGrantedMessage.classList.add("hidden");
+    hasScrolledToEnd = false;
+    window.removeEventListener('scroll', checkScrollPosition); // Hapus event listener scroll saat logout
   });
 
   kisiForm.addEventListener("submit", function(e) {
     e.preventDefault();
     const selectedMapel = mapelSelect.value;
-    accessGrantedMessage.classList.add("hidden"); // Sembunyikan pesan setiap kali kisi-kisi baru ditampilkan
-    hasScrolledToEnd = false; // Reset flag setiap kali kisi-kisi baru ditampilkan
+    accessGrantedMessage.classList.add("hidden");
+    hasScrolledToEnd = false; 
 
     if (!selectedMapel) {
         kisiContentContainer.innerHTML = '<p class="text-center text-danger my-4">Silakan pilih mata pelajaran terlebih dahulu.</p>';
+        window.removeEventListener('scroll', checkScrollPosition); // Hapus listener jika tidak ada mapel
         return;
     }
 
@@ -446,38 +446,38 @@
       </div>`;
 
     kisiContentContainer.innerHTML = fullTable;
-    if (selectedMapel) {
-        // Tidak langsung scroll ke konten, biarkan user scroll manual
-        // kisiContentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    // Tambahkan event listener untuk scroll setelah tabel dimuat
-    // Kita akan memantau scroll pada window karena .table-responsive mungkin tidak selalu memiliki scrollbar sendiri
-    // jika kontennya tidak cukup panjang, namun kartu utama bisa di-scroll.
+    
+    // Selalu pastikan listener lama dihapus sebelum menambahkan yang baru untuk menghindari duplikasi
+    window.removeEventListener('scroll', checkScrollPosition);
     window.addEventListener('scroll', checkScrollPosition);
   });
 
-  // Fungsi untuk mengecek posisi scroll
   function checkScrollPosition() {
-    if (hasScrolledToEnd) return; // Jika sudah muncul, jangan cek lagi
+    if (hasScrolledToEnd || kisiContentContainer.offsetParent === null) {
+        // Jika pesan sudah muncul atau container tidak terlihat (misal setelah logout),
+        // tidak perlu melakukan apa-apa atau bisa hapus listener
+        if (kisiContentContainer.offsetParent === null) {
+            window.removeEventListener('scroll', checkScrollPosition);
+        }
+        return;
+    }
 
-    // Cek apakah elemen kisiContentContainer ada dan terlihat
     const tableElement = kisiContentContainer.querySelector('.table');
-    if (!tableElement || kisiContentContainer.offsetParent === null) {
-      window.removeEventListener('scroll', checkScrollPosition); // Hapus listener jika tabel tidak ada/tersembunyi
+    if (!tableElement) {
+      window.removeEventListener('scroll', checkScrollPosition);
       return;
     }
 
-    // Hitung posisi bawah dari tabel relatif terhadap viewport
     const rect = tableElement.getBoundingClientRect();
-    const bottomOfTableVisible = rect.bottom <= window.innerHeight + 100; // +100px sebagai buffer
+    // Cek apakah bagian bawah tabel (atau sedikit di atasnya) sudah masuk viewport
+    // atau jika user sudah scroll ke dasar halaman (untuk konten yang sangat panjang)
+    const isTableBottomVisible = rect.bottom <= (window.innerHeight + 150); // Buffer 150px
+    const isPageBottomReached = (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 150; // Buffer 150px
 
-    // Atau, cek jika user sudah scroll ke bagian paling bawah halaman (jika halaman panjang)
-    const scrolledToPageBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100; // -100px buffer
-
-    if (bottomOfTableVisible || scrolledToPageBottom) {
+    if (isTableBottomVisible || isPageBottomReached) {
       accessGrantedMessage.classList.remove("hidden");
-      hasScrolledToEnd = true; // Set flag agar tidak muncul berulang kali
-      window.removeEventListener('scroll', checkScrollPosition); // Hapus listener setelah pesan muncul
+      hasScrolledToEnd = true;
+      window.removeEventListener('scroll', checkScrollPosition);
     }
   }
 
