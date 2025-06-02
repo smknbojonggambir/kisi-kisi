@@ -5,168 +5,272 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kisi-Kisi Ujian - SMKN Bojonggambir</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary-color: #0056b3;
-      --secondary-color: #6c757d;
-      --light-bg: #f8f9fa;
-      --dark-text: #343a40;
-      --border-radius: 15px;
-      --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      --table-header-bg: #004a99; /* Warna header tabel sedikit lebih gelap dari primary */
-      --table-hover-bg: rgba(0, 86, 179, 0.08);
-      --table-stripe-bg: rgba(0, 86, 179, 0.03);
-      --success-bg: #d1e7dd; /* Latar belakang untuk pesan sukses */
-      --success-text: #0f5132; /* Warna teks untuk pesan sukses */
+      --primary-color: #4A90E2;
+      --primary-darker: #357ABD;
+      --secondary-color: #50E3C2;
+      --text-color: #333;
+      --light-text-color: #777;
+      --bg-color: #F4F7F6;
+      --card-bg: #FFFFFF;
+      --border-color: #E0E0E0;
+      --border-radius-md: 12px;
+      --border-radius-lg: 16px;
+      --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+      --table-header-bg: var(--primary-color);
+      --table-hover-bg: rgba(74, 144, 226, 0.1);
+      --table-stripe-bg: rgba(74, 144, 226, 0.04);
+
+      --success-bg: #E0F2F1;
+      --success-text: #00796B;
+      --error-bg: #FFEBEE;
+      --error-text: #C62828;
+
+      --quote-bg: #E3F2FD;
+      --quote-border: var(--primary-color);
+      --quote-text: #212121;
     }
 
     body {
-      background: linear-gradient(135deg, #e9ecef, #dee2e6);
+      background-color: var(--bg-color);
       min-height: 100vh;
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 20px;
-      font-family: 'Roboto', 'Segoe UI', sans-serif;
-      color: var(--dark-text);
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 25px 20px 0 20px;
+      font-family: 'Nunito', 'Poppins', sans-serif;
+      color: var(--text-color);
+      line-height: 1.6;
     }
 
     .container-custom {
-      max-width: 950px;
+      max-width: 1000px;
       width: 100%;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      margin-top: 25px;
+      flex-grow: 1;
     }
 
     .card {
-      border: none;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-color: var(--card-bg);
+      overflow: hidden;
     }
 
     .card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+    .card-header-custom {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.25rem 1.5rem;
+        border-bottom: none;
+        /* border-top-left-radius: var(--border-radius-lg); Dihapus karena card sudah overflow:hidden */
+        /* border-top-right-radius: var(--border-radius-lg); */
+    }
+    .card-header-custom .logo { /* Logo di header kartu login */
+        width: 60px;
+        margin-bottom: 0; /* Dihapus filter agar logo asli tampil */
     }
 
-    .logo {
-      width: 70px;
-      margin-bottom: 15px;
+
+    .logo { /* Logo umum, seperti di header utama aplikasi */
+      width: 60px;
+      margin-bottom: 10px;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
-    .fade-in {
-      animation: fadeInAnimation 0.7s ease-in forwards;
-    }
+    .fade-in { animation: fadeInAnimation 0.6s ease-out forwards; }
+    .fade-in-slow { animation: fadeInAnimation 1s ease-out forwards; }
 
     @keyframes fadeInAnimation {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes popIn {
+        0% { opacity: 0; transform: scale(0.9); }
+        100% { opacity: 1; transform: scale(1); }
     }
 
     .form-control, .form-select {
-        border-radius: 10px;
-        padding-top: 0.6rem;
-        padding-bottom: 0.6rem;
+        border-radius: var(--border-radius-md);
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border-color);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .form-control:focus, .form-select:focus {
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 0.25rem rgba(0, 86, 179, 0.25);
+      box-shadow: 0 0 0 0.2rem rgba(var(--primary-color), 0.25); /* Perlu rgba(74,144,226,0.25) jika --primary-color tidak dalam format RGB */
+    }
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
     }
 
     .btn {
-      border-radius: 25px;
+      border-radius: var(--border-radius-md);
       font-weight: 600;
-      padding: 10px 22px;
-      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 0.75rem 1.5rem;
+      transition: all 0.25s ease-out;
+      border: none;
+      letter-spacing: 0.5px;
     }
     .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .btn:active {
+        transform: translateY(-1px);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
     }
 
-    .btn-primary { background-color: var(--primary-color); border-color: var(--primary-color); color:white; }
-    .btn-primary:hover { background-color: #004494; border-color: #004494; color:white;}
+    .btn-primary { background-color: var(--primary-color); color:white; }
+    .btn-primary:hover { background-color: var(--primary-darker); color:white;}
 
-    .btn-success { background-color: #198754; border-color: #198754; color:white;}
-    .btn-success:hover { background-color: #146c43; border-color: #146c43; color:white;}
+    .btn-success { background-color: var(--secondary-color); color: var(--primary-darker); }
+    .btn-success:hover { background-color: #38D4B0; color: var(--primary-darker);}
 
-    .btn-danger { background-color: #dc3545; border-color: #dc3545; color:white;}
-    .btn-danger:hover { background-color: #b02a37; border-color: #b02a37; color:white;}
+    .btn-danger { background-color: #E94E77; color:white;}
+    .btn-danger:hover { background-color: #D93D68; color:white;}
 
+    .btn-info { background-color: #58B3E0; color:white;}
+    .btn-info:hover { background-color: #46A2D0; color:white;}
 
-    .btn i {
-      margin-right: 8px;
-    }
+    .btn i { margin-right: 10px; }
+    .btn-sm i { margin-right: 6px;}
 
     #userInfoBar {
-      background-color: var(--light-bg);
-      border-radius: var(--border-radius);
-      padding: 12px 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      background-color: transparent;
+      padding: 10px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
     }
     #userGreeting {
-      font-size: 1.1rem;
-      font-weight: 500;
+      font-size: 1.2rem;
+      font-weight: 600;
       color: var(--primary-color);
+      font-family: 'Poppins', sans-serif;
     }
 
-    h3 { color: var(--dark-text); font-weight: 600;}
-    h4.text-muted { color: var(--secondary-color) !important; }
+    h3 { color: var(--text-color); font-weight: 700; font-family: 'Poppins', sans-serif;}
+    h4.text-muted { color: var(--light-text-color) !important; font-size: 1.1rem;}
     h5.kisi-title {
         color: var(--primary-color);
         font-weight: 700;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        font-family: 'Poppins', sans-serif;
+        border-bottom: 2px solid var(--secondary-color);
+        padding-bottom: 0.5rem;
+        display: inline-block;
+    }
+
+    .motivation-quote {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: var(--quote-bg);
+      border-radius: var(--border-radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+    .motivation-quote blockquote {
+      border-left: none;
+      padding: 0;
+      font-style: normal;
+      color: var(--quote-text);
+      display: block;
+      max-width: 100%;
+      text-align: center;
+    }
+    .motivation-quote blockquote p {
+        font-size: 1.1em;
+        line-height: 1.7;
         margin-bottom: 0.75rem;
+        font-weight: 400;
+    }
+    .motivation-quote blockquote em {
+        font-size: 0.95em;
+        color: var(--primary-color);
+        font-style: normal;
+        font-weight: 600;
+    }
+    .motivation-quote img.logo-quote {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50px;
+        margin-bottom: 15px;
+        opacity: 0.8;
     }
 
     #kisiContentContainer .table-responsive {
-        border-radius: 10px;
-        overflow-x: auto;
+        border-radius: var(--border-radius-md);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm);
     }
 
     #kisiContentContainer .table {
       margin-bottom: 0;
-      border-radius: 10px;
+      border-radius: 0;
       overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-      border-collapse: separate;
-      border-spacing: 0;
+      box-shadow: none;
+      border-collapse: collapse;
     }
 
     #kisiContentContainer thead th {
       background-color: var(--table-header-bg) !important;
       color: white !important;
       font-weight: 600;
-      padding: 0.9rem 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-size: 0.8em;
-      border-top: none;
-      border-bottom: 1px solid rgba(255,255,255,0.2) !important;
+      padding: 1rem 0.8rem;
+      text-transform: capitalize;
+      letter-spacing: 0.3px;
+      font-size: 0.9em;
+      border:none;
+      font-family: 'Poppins', sans-serif;
     }
-    #kisiContentContainer thead th:first-child { border-top-left-radius: 10px; }
-    #kisiContentContainer thead th:last-child { border-top-right-radius: 10px; }
+    #kisiContentContainer thead th:first-child { border-top-left-radius: 0; }
+    #kisiContentContainer thead th:last-child { border-top-right-radius: 0; }
 
     #kisiContentContainer .table-warning thead th {
-        background-color: #ffc107 !important; color: var(--dark-text) !important;
+        background-color: #FFCA28 !important; color: #212121 !important;
     }
-    #kisiContentContainer .table-info thead th {
-        background-color: #17a2b8 !important; color: white !important;
+     #kisiContentContainer tr.table-warning th { /* Perbaikan selector untuk tr */
+        background-color: #FFCA28 !important; color: #212121 !important;
     }
 
+    #kisiContentContainer .table-info thead th {
+        background-color: #26C6DA !important; color: white !important;
+    }
+    #kisiContentContainer tr.table-info th { /* Perbaikan selector untuk tr */
+        background-color: #26C6DA !important; color: white !important;
+    }
+
+
     #kisiContentContainer tbody td {
-      padding: 0.8rem 0.8rem;
-      font-size: 0.88em;
+      padding: 0.9rem 0.8rem;
+      font-size: 0.9em;
       vertical-align: middle;
-      border-top: 1px solid #dee2e6;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-color);
+    }
+     #kisiContentContainer tbody tr:first-child td {
+        border-top: none;
     }
 
     #kisiContentContainer .table-striped tbody tr:nth-of-type(odd) {
@@ -176,64 +280,118 @@
     #kisiContentContainer .table-hover tbody tr:hover {
       background-color: var(--table-hover-bg);
       transition: background-color 0.2s ease;
+      cursor: pointer;
+    }
+    #kisiContentContainer .table-hover tbody tr:hover td {
+        color: var(--primary-darker);
+        font-weight: 500;
     }
 
-    /* Gaya untuk pesan "Akses Diberikan" */
     #accessGrantedMessage {
       background-color: var(--success-bg);
       color: var(--success-text);
       border: 1px solid var(--success-text);
-      border-radius: var(--border-radius);
-      padding: 15px;
-      margin-top: 25px;
+      border-radius: var(--border-radius-md);
+      padding: 1rem 1.5rem;
+      margin-top: 30px;
       text-align: center;
-      font-weight: 500;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+      animation: popIn 0.5s ease-out;
     }
     #accessGrantedMessage i {
-      margin-right: 8px;
+      margin-right: 10px;
+      font-size: 1.2em;
+    }
+    
+    .alert {
+        border-radius: var(--border-radius-md);
+        padding: 1rem 1.25rem;
+        animation: popIn 0.3s ease-out;
+    }
+    .alert-danger {
+        background-color: var(--error-bg);
+        color: var(--error-text);
+        border-color: var(--error-text);
+    }
+
+    footer.site-footer {
+      width: 100%;
+      padding: 30px 0;
+      margin-top: 40px;
+      background-color: var(--card-bg);
+      border-top: 1px solid var(--border-color);
+      box-shadow: 0 -5px 15px rgba(0,0,0,0.03);
+    }
+
+    footer.site-footer p {
+      margin-bottom: 0;
+      font-size: 0.9rem;
+      color: var(--light-text-color);
+    }
+
+    footer.site-footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer.site-footer a:hover {
+      color: var(--primary-darker);
+      text-decoration: underline;
+    }
+
+    footer.site-footer .fa-code,
+    footer.site-footer .fa-heart {
+        margin: 0 4px;
+    }
+    footer.site-footer .fa-heart {
+        color: #E91E63;
     }
 
     @media (max-width: 768px) {
+      body { padding: 15px 15px 0 15px; }
+      .container-custom { margin-top: 15px; }
       .card { padding: 20px !important; }
-      h3 { font-size: 1.4rem; }
-      h4 { font-size: 1.0rem; }
+      .card-header-custom { padding: 1rem 1.25rem;}
+      h3 { font-size: 1.5rem; }
+      h4.text-muted { font-size: 1rem; }
+      h5.kisi-title { font-size: 1.3rem; }
       #kisiContentContainer .table, #kisiContentContainer tbody td, #kisiContentContainer thead th {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
       }
       #kisiContentContainer thead th, #kisiContentContainer tbody td {
-        padding: 0.6rem 0.4rem;
+        padding: 0.7rem 0.5rem;
       }
-      .btn { padding: 8px 15px; font-size: 0.9rem;}
-      #userGreeting {font-size: 1rem;}
-      .container-custom { margin-top: 10px; margin-bottom: 10px; }
+      .btn { padding: 0.6rem 1.2rem; font-size: 0.9rem;}
+      #userGreeting {font-size: 1.1rem;}
+      .motivation-quote { padding: 15px; margin-bottom: 20px;}
+      .motivation-quote blockquote p { font-size: 1em; }
+      .motivation-quote blockquote em { font-size: 0.85em; }
+      footer.site-footer { padding: 20px 0; font-size: 0.85rem;}
+      #accessGrantedMessage { padding: 0.9rem 1rem; }
     }
   </style>
 </head>
 <body>
 
 <div class="container-custom">
-  <div id="loginCard" class="card p-4 p-md-5 mx-auto fade-in" style="max-width: 450px;">
-    <div class="text-center mb-4">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0ZbJ8sSg5d1QniYiIQaRKc0yNJqi_wEdMdt-qRk4NoQf7bnOrhoe4IN8KXkYnhhfSfKTMm6oNr6lUlVpNJKM20HRfvHL0hYNYPANYQkT7Kt1kHeP8-FyE7X-jnYyFsHlmZkpH9NpvD2_23jPBon7okjF3jW4ZqJkJu6fcuvHRYA7KH554K7z8KjDeGjH7/s320/LOGO%20SMKN%20BOJONGGAMBIR.png" alt="Logo SMKN Bojonggambir" class="logo" />
-      <h4 class="mb-3">Login Akses Kisi-Kisi</h4>
-      <p class="text-muted">SMKN Bojonggambir</p>
-    </div>
-    <form id="loginForm">
-      <div class="mb-3">
-        <label for="username" class="form-label">Nama Pengguna</label>
+  <div id="loginCard" class="card p-0 mx-auto fade-in" style="max-width: 480px;"> <div class="card-header-custom text-center">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0ZbJ8sSg5d1QniYiIQaRKc0yNJqi_wEdMdt-qRk4NoQf7bnOrhoe4IN8KXkYnhhfSfKTMm6oNr6lUlVpNJKM20HRfvHL0hYNYPANYQkT7Kt1kHeP8-FyE7X-jnYyFsHlmZkpH9NpvD2_23jPBon7okjF3jW4ZqJkJu6fcuvHRYA7KH554K7z8KjDeGjH7/s320/LOGO%20SMKN%20BOJONGGAMBIR.png" alt="Logo SMKN Bojonggambir" class="logo mt-3" /> <h4 class="mb-0 mt-2 h5">Portal Kisi-Kisi Ujian</h4>
+        <p class="mb-0 small pb-3">SMKN Bojonggambir</p> </div>
+    <form id="loginForm" class="p-4"> <div class="mb-3">
+        <label for="username" class="form-label">Nama Pengguna <span class="text-danger">*</span></label>
         <input type="text" class="form-control" id="username" placeholder="Masukkan nama Anda" required />
       </div>
       <div class="mb-3">
-        <label for="password" class="form-label">Kata Sandi</label>
-        <input type="password" class="form-control" id="password" placeholder="Masukkan kata sandi (12345)" required />
+        <label for="password" class="form-label">Kata Sandi <span class="text-danger">*</span></label>
+        <input type="password" class="form-control" id="password" placeholder="Kata sandi (12345)" required />
       </div>
-      <div class="d-grid mt-4">
-        <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>Masuk</button>
+      <div class="d-grid mt-4 pt-2">
+        <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-sign-in-alt"></i>Masuk Sekarang</button>
       </div>
       <div id="loginAlert" class="alert alert-danger mt-3 d-none" role="alert">
-        Nama pengguna atau kata sandi salah.
-      </div>
+        </div>
     </form>
   </div>
 
@@ -243,25 +401,32 @@
       <button id="logoutButton" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
 
-    <div class="card p-4 p-md-5">
+    <div class="card p-4 p-md-5 mt-3">
       <div class="text-center mb-4">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0ZbJ8sSg5d1QniYiIQaRKc0yNJqi_wEdMdt-qRk4NoQf7bnOrhoe4IN8KXkYnhhfSfKTMm6oNr6lUlVpNJKM20HRfvHL0hYNYPANYQkT7Kt1kHeP8-FyE7X-jnYyFsHlmZkpH9NpvD2_23jPBon7okjF3jW4ZqJkJu6fcuvHRYA7KH554K7z8KjDeGjH7/s320/LOGO%20SMKN%20BOJONGGAMBIR.png" class="logo" alt="Logo SMKN Bojonggambir" />
         <h3>SMKN Bojonggambir</h3>
         <h4 class="text-muted">Kisi-Kisi Ujian Tahun Pelajaran 2024/2025</h4>
       </div>
 
-      <form id="kisiForm" class="mb-4">
-        <div class="row g-3 align-items-end justify-content-center">
+      <div class="motivation-quote fade-in-slow">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0ZbJ8sSg5d1QniYiIQaRKc0yNJqi_wEdMdt-qRk4NoQf7bnOrhoe4IN8KXkYnhhfSfKTMm6oNr6lUlVpNJKM20HRfvHL0hYNYPANYQkT7Kt1kHeP8-FyE7X-jnYyFsHlmZkpH9NpvD2_23jPBon7okjF3jW4ZqJkJu6fcuvHRYA7KH554K7z8KjDeGjH7/s320/LOGO%20SMKN%20BOJONGGAMBIR.png" alt="Inspirasi" class="logo-quote" />
+        <blockquote>
+          <p id="motivationText" class="mb-1"></p>
+          <em id="motivationAuthor" class="d-block text-end"></em>
+        </blockquote>
+      </div>
+
+      <form id="kisiForm" class="mb-4 pt-2">
+        <div class="row g-3 align-items-center justify-content-center">
           <div class="col-md-7 col-12">
-            <label for="mapel" class="form-label">Pilih Mata Pelajaran:</label>
-            <select class="form-select form-select-lg" id="mapel" required>
-              <option value="" disabled selected>-- Silakan Pilih Mata Pelajaran --</option>
+            <label for="mapel" class="form-label visually-hidden">Pilih Mata Pelajaran:</label>
+            <select class="form-select form-select-lg" id="mapel" required aria-label="Pilih Mata Pelajaran">
+              <option value="" disabled selected>-- Pilih Mata Pelajaran --</option>
               <option value="dddkv">Dasar-dasar Desain Komunikasi Visual</option>
               <option value="informatika">Informatika</option>
             </select>
           </div>
           <div class="col-md-auto col-12 d-grid">
-            <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-eye"></i>Tampilkan Kisi-Kisi</button>
+            <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-search"></i>Lihat Kisi-Kisi</button>
           </div>
         </div>
       </form>
@@ -269,15 +434,24 @@
       <div id="kisiContentContainer" class="mt-4">
          </div>
 
-      <div id="accessGrantedMessage" class="hidden fade-in">
-        <i class="fas fa-check-circle"></i> Terima kasih telah membaca. Akses selanjutnya telah diberikan!
+      <div id="accessGrantedMessage" class="hidden">
+        <i class="fas fa-check-circle"></i> Terima kasih telah membaca. Anda siap melanjutkan!
         <div class="mt-3">
-            <button class="btn btn-info" onclick="window.location.href='https://www.kangruli.web.id/'"><i class="fas fa-arrow-right"></i> Lanjutkan ke Tahap Berikutnya</button>
+            <button class="btn btn-info" onclick="window.location.href='https://www.kangruli.web.id/'"><i class="fas fa-external-link-alt"></i> Kunjungi KangRuli.Web.ID</button>
         </div>
       </div>
     </div>
   </div>
+
+  <footer class="site-footer text-center">
+    <p>
+      &copy; <span id="currentYear"></span> SMKN Bojonggambir.
+      Dibuat dengan <i class="fas fa-heart"></i> oleh <a href="https://www.kangruli.web.id/" target="_blank" rel="noopener noreferrer"><i class="fas fa-code"></i> Kang Ruli Code</a>.
+    </p>
+  </footer>
+
 </div>
+
 
 <script>
   // DOM Elements
@@ -293,27 +467,55 @@
   const mapelSelect = document.getElementById("mapel");
   const kisiContentContainer = document.getElementById("kisiContentContainer");
   const accessGrantedMessage = document.getElementById("accessGrantedMessage");
+  const motivationQuoteElement = document.getElementById("motivationText");
+  const motivationAuthorElement = document.getElementById("motivationAuthor");
+
+  const motivationalQuotes = [
+    { text: "Pendidikan adalah senjata paling ampuh yang bisa kamu gunakan untuk mengubah dunia.", author: "Nelson Mandela" },
+    { text: "Mulai dari mana Anda berada. Gunakan apa yang Anda miliki. Lakukan apa yang Anda bisa.", author: "Arthur Ashe" },
+    { text: "Satu-satunya cara untuk melakukan pekerjaan hebat adalah dengan mencintai apa yang Anda lakukan.", author: "Steve Jobs" },
+    { text: "Jangan biarkan kemarin menyita terlalu banyak hari ini.", author: "Will Rogers" },
+    { text: "Percaya kamu bisa dan kamu sudah setengah jalan.", author: "Theodore Roosevelt" },
+    { text: "Tindakan adalah kunci dasar untuk semua kesuksesan.", author: "Pablo Picasso" },
+    { text: "Masa depan adalah milik mereka yang percaya pada keindahan mimpi mereka.", author: "Eleanor Roosevelt" },
+    { text: "Kesempatan tidak terjadi, Anda yang menciptakannya.", author: "Chris Grosser" },
+    { text: "Untuk berhasil, keinginanmu akan sukses harus lebih besar dari ketakutanmu akan kegagalan.", author: "Bill Cosby" },
+    { text: "Jangan takut untuk menyerah pada yang baik untuk mengejar yang hebat.", author: "John D. Rockefeller" }
+  ];
 
   let hasScrolledToEnd = false;
+  let scrollListenerActive = false;
+
+  function displayRandomQuote() {
+    if (motivationQuoteElement && motivationAuthorElement) {
+      const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+      const randomQuote = motivationalQuotes[randomIndex];
+      motivationQuoteElement.innerHTML = `"${randomQuote.text}"`;
+      motivationAuthorElement.innerHTML = `&mdash; ${randomQuote.author}`;
+    }
+  }
+
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
 
   loginForm.addEventListener("submit", function(e) {
     e.preventDefault();
     const username = usernameInput.value.trim();
     const password = passwordInput.value;
 
-    // Logika login baru: nama pengguna bebas, password harus "12345"
     if (username && password === "12345") {
       loginAlert.classList.add("d-none");
       userGreetingElement.textContent = `Halo, ${username || 'Pengguna'}!`;
       loginCard.classList.add("hidden");
       mainContent.classList.remove("hidden");
       mainContent.classList.add("fade-in");
-      passwordInput.value = ""; 
+      passwordInput.value = "";
+      // usernameInput.value = ""; // Biarkan jika user ingin login lagi dengan user yg sama, atau kosongkan
+      displayRandomQuote();
     } else if (!username) {
-      loginAlert.textContent = "Nama pengguna tidak boleh kosong.";
+      loginAlert.textContent = "Nama pengguna wajib diisi.";
       loginAlert.classList.remove("d-none");
     } else {
-      loginAlert.textContent = "Kata sandi salah. Silakan coba lagi.";
+      loginAlert.textContent = "Kata sandi yang Anda masukkan salah.";
       loginAlert.classList.remove("d-none");
     }
   });
@@ -325,33 +527,42 @@
     loginCard.classList.add("fade-in");
     kisiContentContainer.innerHTML = "";
     mapelSelect.value = "";
-    passwordInput.value = ""; // Kosongkan field password juga saat logout
+    passwordInput.value = "";
     loginAlert.classList.add("d-none");
     accessGrantedMessage.classList.add("hidden");
+    accessGrantedMessage.classList.remove("fade-in");
     hasScrolledToEnd = false;
-    window.removeEventListener('scroll', checkScrollPosition); // Hapus event listener scroll saat logout
+    if (scrollListenerActive) {
+        window.removeEventListener('scroll', checkScrollPosition);
+        scrollListenerActive = false;
+    }
   });
 
   kisiForm.addEventListener("submit", function(e) {
     e.preventDefault();
     const selectedMapel = mapelSelect.value;
     accessGrantedMessage.classList.add("hidden");
-    hasScrolledToEnd = false; 
+    accessGrantedMessage.classList.remove("fade-in");
+    hasScrolledToEnd = false;
+    displayRandomQuote();
 
     if (!selectedMapel) {
-        kisiContentContainer.innerHTML = '<p class="text-center text-danger my-4">Silakan pilih mata pelajaran terlebih dahulu.</p>';
-        window.removeEventListener('scroll', checkScrollPosition); // Hapus listener jika tidak ada mapel
+        kisiContentContainer.innerHTML = '<div class="alert alert-warning text-center my-4">⚠️ Silakan pilih mata pelajaran terlebih dahulu.</div>';
+        if (scrollListenerActive) {
+            window.removeEventListener('scroll', checkScrollPosition);
+            scrollListenerActive = false;
+        }
         return;
     }
 
     let tableTitle = "";
-    let tableHTML = "";
-    let tableClass = "";
+    let tableDataHTML = ""; // Hanya untuk tbody
+    let tableHeaderClass = ""; // Untuk class di <tr> thead
 
     if (selectedMapel === "dddkv") {
       tableTitle = "Dasar-dasar Desain Komunikasi Visual";
-      tableClass = "table-warning";
-      tableHTML = `
+      tableHeaderClass = "table-warning";
+      tableDataHTML = `
             <tbody>
               <tr><td rowspan="2">1</td><td rowspan="2">Memahami proses bisnis di bidang DKV</td><td>Proses Bisnis DKV</td><td>Mengidentifikasi tahapan proses bisnis</td><td>C1</td><td>1</td></tr>
               <tr><td>Proses Bisnis DKV</td><td>Menjelaskan alur kerja desain</td><td>C2</td><td>2</td></tr>
@@ -386,8 +597,8 @@
             </tbody>`;
     } else if (selectedMapel === "informatika") {
       tableTitle = "Informatika";
-      tableClass = "table-info";
-      tableHTML = `
+      tableHeaderClass = "table-info";
+      tableDataHTML = `
             <tbody>
               <tr><td>1</td><td>Berpikir logis dan sistematis</td><td>Pola Berpikir</td><td>Menentukan pola dalam suatu permasalahan</td><td>C2</td><td>1</td></tr>
               <tr><td>2</td><td>Menerapkan logika proposisi</td><td>Logika Proposisi</td><td>Mengidentifikasi jenis pernyataan logika</td><td>C1</td><td>2</td></tr>
@@ -428,59 +639,61 @@
     }
 
     const fullTable = `
-      <h5 class="text-center kisi-title mt-4">Kisi-Kisi: ${tableTitle}</h5>
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover">
-          <thead class="${tableClass}">
-            <tr>
-              <th>No</th>
-              <th>Kompetensi Dasar</th>
-              <th>Materi</th>
-              <th>Indikator Soal</th>
-              <th>Level Kognitif</th>
-              <th>No Soal</th>
-            </tr>
+      <h5 class="text-center kisi-title mt-3">${tableTitle}</h5>
+      <div class="table-responsive mt-3">
+        <table class="table table-striped table-hover"> <thead>
+             <tr class="${tableHeaderClass}"> <th>No</th>
+                <th>Kompetensi Dasar</th>
+                <th>Materi</th>
+                <th>Indikator Soal</th>
+                <th>Level Kognitif</th>
+                <th>No Soal</th>
+              </tr>
           </thead>
-          ${tableHTML}
+          ${tableDataHTML}
         </table>
       </div>`;
 
     kisiContentContainer.innerHTML = fullTable;
-    
-    // Selalu pastikan listener lama dihapus sebelum menambahkan yang baru untuk menghindari duplikasi
-    window.removeEventListener('scroll', checkScrollPosition);
-    window.addEventListener('scroll', checkScrollPosition);
+
+    if (!scrollListenerActive) {
+        window.addEventListener('scroll', checkScrollPosition);
+        scrollListenerActive = true;
+    }
   });
 
   function checkScrollPosition() {
     if (hasScrolledToEnd || kisiContentContainer.offsetParent === null) {
-        // Jika pesan sudah muncul atau container tidak terlihat (misal setelah logout),
-        // tidak perlu melakukan apa-apa atau bisa hapus listener
-        if (kisiContentContainer.offsetParent === null) {
+        if (kisiContentContainer.offsetParent === null && scrollListenerActive) {
             window.removeEventListener('scroll', checkScrollPosition);
+            scrollListenerActive = false;
         }
         return;
     }
 
     const tableElement = kisiContentContainer.querySelector('.table');
     if (!tableElement) {
-      window.removeEventListener('scroll', checkScrollPosition);
+      if (scrollListenerActive) {
+        window.removeEventListener('scroll', checkScrollPosition);
+        scrollListenerActive = false;
+      }
       return;
     }
 
     const rect = tableElement.getBoundingClientRect();
-    // Cek apakah bagian bawah tabel (atau sedikit di atasnya) sudah masuk viewport
-    // atau jika user sudah scroll ke dasar halaman (untuk konten yang sangat panjang)
-    const isTableBottomVisible = rect.bottom <= (window.innerHeight + 150); // Buffer 150px
-    const isPageBottomReached = (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 150; // Buffer 150px
+    const isTableBottomVisible = rect.bottom <= (window.innerHeight + 100);
+    const isPageBottomReached = (window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 50);
 
     if (isTableBottomVisible || isPageBottomReached) {
       accessGrantedMessage.classList.remove("hidden");
+      accessGrantedMessage.classList.add("fade-in");
       hasScrolledToEnd = true;
-      window.removeEventListener('scroll', checkScrollPosition);
+      if (scrollListenerActive) {
+        window.removeEventListener('scroll', checkScrollPosition);
+        scrollListenerActive = false;
+      }
     }
   }
-
 </script>
 
 </body>
