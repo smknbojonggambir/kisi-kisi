@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kisi-Kisi Ujian - SMKN Bojonggambir</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --primary-color: #0056b3;
+      --secondary-color: #6c757d;
+      --light-bg: #f8f9fa;
+      --dark-text: #343a40;
+      --border-radius: 15px;
+      --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      --table-header-bg: #004a99; /* Warna header tabel sedikit lebih gelap dari primary */
+      --table-hover-bg: rgba(0, 86, 179, 0.08);
+      --table-stripe-bg: rgba(0, 86, 179, 0.03);
+    }
+
+    body {
+      background: linear-gradient(135deg, #e9ecef, #dee2e6); /* Latar belakang lebih netral */
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start; /* Align items to start for long content */
+      justify-content: center;
+      padding: 20px;
+      font-family: 'Roboto', 'Segoe UI', sans-serif;
+      color: var(--dark-text);
+    }
+
+    .container-custom {
+      max-width: 950px; /* Sedikit lebih lebar untuk tabel */
+      width: 100%;
+      margin-top: 20px; /* Margin atas untuk body align-items: flex-start */
+      margin-bottom: 20px;
+    }
+
+    .card {
+      border: none;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      background-color: #ffffff;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      width: 70px;
+      margin-bottom: 15px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .fade-in {
+      animation: fadeInAnimation 0.7s ease-in forwards;
+    }
+
+    @keyframes fadeInAnimation {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-control, .form-select {
+        border-radius: 10px;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(0, 86, 179, 0.25);
+    }
+
+    .btn { /* General button styling */
+      border-radius: 25px;
+      font-weight: 600;
+      padding: 10px 22px;
+      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .btn-primary { background-color: var(--primary-color); border-color: var(--primary-color); color:white; }
+    .btn-primary:hover { background-color: #004494; border-color: #004494; color:white;}
+
+    .btn-success { background-color: #198754; border-color: #198754; color:white;}
+    .btn-success:hover { background-color: #146c43; border-color: #146c43; color:white;}
+
+    .btn-danger { background-color: #dc3545; border-color: #dc3545; color:white;}
+    .btn-danger:hover { background-color: #b02a37; border-color: #b02a37; color:white;}
+
+
+    .btn i {
+      margin-right: 8px;
+    }
+
+    #userInfoBar {
+      background-color: var(--light-bg);
+      border-radius: var(--border-radius);
+      padding: 12px 20px;
+      margin-bottom: 25px; /* Lebih banyak spasi */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    }
+    #userGreeting {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+
+    h3 { color: var(--dark-text); font-weight: 600;}
+    h4.text-muted { color: var(--secondary-color) !important; }
+    h5.kisi-title { /* Class baru untuk judul kisi-kisi */
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 0.75rem; /* Spasi bawah judul */
+    }
+
+
+    /* --- Start Perbaikan Tampilan Tabel Kisi-Kisi --- */
+    #kisiContentContainer .table-responsive {
+        border-radius: 10px; /* Agar shadow terlihat baik */
+        overflow-x: auto; /* Pastikan scroll horizontal tetap ada jika perlu */
+    }
+
+    #kisiContentContainer .table {
+      margin-bottom: 0; /* Hapus margin bawah default karena container yang mengatur */
+      border-radius: 10px; /* Radius pada tabel */
+      overflow: hidden; /* Penting agar border-radius pada thead/table bekerja */
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* Shadow halus untuk tabel */
+      border-collapse: separate; /* Atau 'collapse', tapi separate lebih baik untuk border-radius table */
+      border-spacing: 0;
+    }
+
+    #kisiContentContainer thead {
+      /* border-bottom: 3px solid var(--primary-color); Garis bawah yang lebih tebal */
+    }
+
+    #kisiContentContainer thead th {
+      background-color: var(--table-header-bg) !important;
+      color: white !important;
+      font-weight: 600;
+      padding: 0.9rem 0.8rem; /* Padding yang nyaman */
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.8em; /* Ukuran font header */
+      border-top: none; /* Hilangkan border atas default jika ada */
+      border-bottom: 1px solid rgba(255,255,255,0.2) !important; /* Garis antar header cell */
+    }
+    #kisiContentContainer thead th:first-child { border-top-left-radius: 10px; } /* Rounded corner kiri atas */
+    #kisiContentContainer thead th:last-child { border-top-right-radius: 10px; } /* Rounded corner kanan atas */
+
+
+    /* Subject-specific headers */
+    #kisiContentContainer .table-warning thead th {
+        background-color: #ffc107 !important; color: var(--dark-text) !important;
+    }
+    #kisiContentContainer .table-info thead th {
+        background-color: #17a2b8 !important; color: white !important; /* Warna info lebih gelap */
+    }
+
+    #kisiContentContainer tbody td {
+      padding: 0.8rem 0.8rem;
+      font-size: 0.88em;
+      vertical-align: middle;
+      border-top: 1px solid #dee2e6; /* Garis horizontal antar baris */
+    }
+
+    #kisiContentContainer .table-striped tbody tr:nth-of-type(odd) {
+      background-color: var(--table-stripe-bg);
+    }
+
+    #kisiContentContainer .table-hover tbody tr:hover {
+      background-color: var(--table-hover-bg);
+      /* color: var(--primary-color); Ganti warna teks jika diinginkan, tapi bisa jadi kurang kontras */
+      transition: background-color 0.2s ease;
+    }
+    /* --- End Perbaikan Tampilan Tabel Kisi-Kisi --- */
+
+    @media (max-width: 768px) {
+      .card { padding: 20px !important; }
+      h3 { font-size: 1.4rem; }
+      h4 { font-size: 1.0rem; }
+      #kisiContentContainer .table, #kisiContentContainer tbody td, #kisiContentContainer thead th {
+        font-size: 0.75rem; /* Font lebih kecil untuk tabel di mobile */
+      }
+      #kisiContentContainer thead th, #kisiContentContainer tbody td {
+        padding: 0.6rem 0.4rem; /* Padding lebih kecil di mobile */
+      }
+      .btn { padding: 8px 15px; font-size: 0.9rem;}
+      #userGreeting {font-size: 1rem;}
+      .container-custom { margin-top: 10px; margin-bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-custom">
+  <div id="loginCard" class="card p-4 p-md-5 mx-auto fade-in" style="max-width: 450px;">
+    <div class="text-center mb-4">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0ZbJ8sSg5d1QniYiIQaRKc0yNJqi_wEdMdt-qRk4NoQf7bnOrhoe4IN8KXkYnhhfSfKTMm6oNr6lUlVpNJKM20HRfvHL0hYNYPANYQkT7Kt1kHeP8-FyE7X-jnYyFsHlmZkpH9NpvD2_23jPBon7okjF3jW4ZqJkJu6fcuvHRYA7KH554K7z8KjDeGjH7/s320/LOGO%20SMKN%20BOJONGGAMBIR.png" alt="Logo SMKN Bojonggambir" class="logo" />
+      <h4 class="mb-3">Login Akses Kisi-Kisi</h4>
+      <p class="text-muted">SMKN Bojonggambir</p>
+    </div>
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="username" class="form-label">Nama Pengguna</label>
+        <input type="text" class="form-control" id="username" placeholder="Masukkan nama Anda" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Kata Sandi</label>
+        <input type="password" class="form-control" id="password" placeholder="Masukkan kata sandi" required />
+      </div>
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>Masuk</button>
+      </div>
+      <div id="loginAlert" class="alert alert-danger mt-3 d-none" role="alert">
+        Nama pengguna atau kata sandi salah.
+      </div>
+    </form>
+  </div>
+
+  <div id="mainContent" class="hidden">
+    <div id="userInfoBar" class="d-flex justify-content-between align-items-center">
+      <p id="userGreeting" class="mb-0"></p>
+      <button id="logoutButton" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <div class="card p-4 p-md-5">
+      <div class="text-center mb-4">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0ZbJ8sSg5d1QniYiIQaRKc0yNJqi_wEdMdt-qRk4NoQf7bnOrhoe4IN8KXkYnhhfSfKTMm6oNr6lUlVpNJKM20HRfvHL0hYNYPANYQkT7Kt1kHeP8-FyE7X-jnYyFsHlmZkpH9NpvD2_23jPBon7okjF3jW4ZqJkJu6fcuvHRYA7KH554K7z8KjDeGjH7/s320/LOGO%20SMKN%20BOJONGGAMBIR.png" class="logo" alt="Logo SMKN Bojonggambir" />
+        <h3>SMKN Bojonggambir</h3>
+        <h4 class="text-muted">Kisi-Kisi Ujian Tahun Pelajaran 2024/2025</h4>
+      </div>
+
+      <form id="kisiForm" class="mb-4">
+        <div class="row g-3 align-items-end justify-content-center">
+          <div class="col-md-7 col-12">
+            <label for="mapel" class="form-label">Pilih Mata Pelajaran:</label>
+            <select class="form-select form-select-lg" id="mapel" required>
+              <option value="" disabled selected>-- Silakan Pilih Mata Pelajaran --</option>
+              <option value="dddkv">Dasar-dasar Desain Komunikasi Visual</option>
+              <option value="informatika">Informatika</option>
+            </select>
+          </div>
+          <div class="col-md-auto col-12 d-grid">
+            <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-eye"></i>Tampilkan Kisi-Kisi</button>
+          </div>
+        </div>
+      </form>
+
+      <div id="kisiContentContainer" class="mt-4">
+         </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // DOM Elements
+  const loginCard = document.getElementById("loginCard");
+  const mainContent = document.getElementById("mainContent");
+  const loginForm = document.getElementById("loginForm");
+  const usernameInput = document.getElementById("username");
+  const passwordInput = document.getElementById("password");
+  const loginAlert = document.getElementById("loginAlert");
+  const userGreetingElement = document.getElementById("userGreeting");
+  const logoutButton = document.getElementById("logoutButton");
+  const kisiForm = document.getElementById("kisiForm");
+  const mapelSelect = document.getElementById("mapel");
+  const kisiContentContainer = document.getElementById("kisiContentContainer");
+
+  // Dummy user data (gantilah dengan sistem otentikasi yang sebenarnya)
+  const validUsers = {
+    "ruli": "12345", // Contoh user: Ruli, password: 12345
+    "guru": "guru123",
+    "admin": "adminpass"
+  };
+
+  loginForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value;
+
+    if (validUsers[username.toLowerCase()] === password) {
+      loginAlert.classList.add("d-none");
+      userGreetingElement.textContent = `Halo, ${username}!`;
+
+      loginCard.classList.add("hidden");
+      mainContent.classList.remove("hidden");
+      mainContent.classList.add("fade-in");
+      passwordInput.value = "";
+    } else {
+      loginAlert.textContent = "Nama pengguna atau kata sandi salah. Silakan coba lagi.";
+      loginAlert.classList.remove("d-none");
+    }
+  });
+
+  logoutButton.addEventListener("click", function() {
+    mainContent.classList.add("hidden");
+    mainContent.classList.remove("fade-in");
+    loginCard.classList.remove("hidden");
+    loginCard.classList.add("fade-in");
+
+    kisiContentContainer.innerHTML = "";
+    mapelSelect.value = "";
+    passwordInput.value = "";
+    loginAlert.classList.add("d-none");
+  });
+
+  kisiForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const selectedMapel = mapelSelect.value;
+    if (!selectedMapel) {
+        kisiContentContainer.innerHTML = '<p class="text-center text-danger my-4">Silakan pilih mata pelajaran terlebih dahulu.</p>';
+        return;
+    }
+
+    let tableTitle = "";
+    let tableHTML = "";
+    let tableClass = ""; // Untuk warna header berbeda per mapel
+
+    if (selectedMapel === "dddkv") {
+      tableTitle = "Dasar-dasar Desain Komunikasi Visual";
+      tableClass = "table-warning"; // Class untuk Bootstrap thead
+      tableHTML = `
+            <tbody>
+              <tr><td rowspan="2">1</td><td rowspan="2">Memahami proses bisnis di bidang DKV</td><td>Proses Bisnis DKV</td><td>Mengidentifikasi tahapan proses bisnis</td><td>C1</td><td>1</td></tr>
+              <tr><td>Proses Bisnis DKV</td><td>Menjelaskan alur kerja desain</td><td>C2</td><td>2</td></tr>
+              <tr><td rowspan="2">2</td><td rowspan="2">Memahami manajemen produksi desain</td><td>Manajemen Produksi</td><td>Menjelaskan fungsi manajemen produksi</td><td>C2</td><td>3</td></tr>
+              <tr><td>Manajemen Produksi</td><td>Menentukan ruang lingkup manajemen produksi</td><td>C3</td><td>4</td></tr>
+              <tr><td rowspan="2">3</td><td rowspan="2">Menerapkan prinsip K3LH</td><td>K3LH di Industri Kreatif</td><td>Menjelaskan prinsip K3LH</td><td>C1</td><td>5</td></tr>
+              <tr><td>K3LH di Industri Kreatif</td><td>Mengidentifikasi contoh penerapan K3LH</td><td>C2</td><td>6</td></tr>
+              <tr><td rowspan="2">4</td><td rowspan="2">Mengaplikasikan tahapan kreasi desain</td><td>Proses Kreasi Desain</td><td>Mengurutkan tahapan proses desain</td><td>C2</td><td>7</td></tr>
+              <tr><td>Proses Kreasi Desain</td><td>Menjelaskan eksplorasi ide desain</td><td>C2</td><td>8</td></tr>
+              <tr><td rowspan="2">5</td><td rowspan="2">Memahami elemen dasar perancangan</td><td>Elemen Desain</td><td>Menyebutkan elemen dasar desain</td><td>C1</td><td>9</td></tr>
+              <tr><td>Elemen Desain</td><td>Menghubungkan elemen dan prinsip desain</td><td>C3</td><td>10</td></tr>
+              <tr><td rowspan="4">6</td><td rowspan="4">Menggunakan sketsa dalam desain</td><td>Sketsa</td><td>Menjelaskan fungsi sketsa</td><td>C2</td><td>11</td></tr>
+              <tr><td>Sketsa</td><td>Mengidentifikasi jenis-jenis sketsa</td><td>C1</td><td>12</td></tr>
+              <tr><td>Ilustrasi</td><td>Menjelaskan perbedaan ilustrasi digital dan manual</td><td>C2</td><td>13</td></tr>
+              <tr><td>Ilustrasi</td><td>Menentukan fungsi ilustrasi dalam desain</td><td>C2</td><td>14</td></tr>
+              <tr><td rowspan="2">7</td><td rowspan="2">Mengembangkan konsep visual</td><td>Sketsa & Ilustrasi</td><td>Menjelaskan perancangan dari sketsa ke desain</td><td>C2</td><td>15</td></tr>
+              <tr><td>Sketsa & Ilustrasi</td><td>Mengidentifikasi teknik dalam ilustrasi</td><td>C1</td><td>16</td></tr>
+              <tr><td>8</td><td>Memahami sejarah tipografi</td><td>Sejarah Tipografi</td><td>Menyebutkan perkembangan tipografi</td><td>C1</td><td>17</td></tr>
+              <tr><td>9</td><td>Menjelaskan tujuan tipografi</td><td>Tujuan Tipografi</td><td>Menjelaskan fungsi tipografi</td><td>C2</td><td>18</td></tr>
+              <tr><td>10</td><td>Mengidentifikasi anatomi huruf</td><td>Anatomi Huruf</td><td>Menjelaskan bagian-bagian huruf</td><td>C1</td><td>19</td></tr>
+              <tr><td>11</td><td>Menerapkan jenis dan karakter huruf</td><td>Jenis Huruf</td><td>Menentukan karakteristik huruf</td><td>C2</td><td>20</td></tr>
+              <tr><td>12</td><td>Menerapkan prinsip dasar tipografi</td><td>Prinsip Tipografi</td><td>Menjelaskan prinsip tipografi</td><td>C2</td><td>21</td></tr>
+              <tr><td>13</td><td>Mengatur layout dan hierarki</td><td>Layout & Hierarki</td><td>Mengidentifikasi struktur layout</td><td>C1</td><td>22</td></tr>
+              <tr><td>14</td><td>Membuat desain tipografi</td><td>Desain Tipografi</td><td>Menjelaskan langkah membuat desain tipografi</td><td>C3</td><td>23</td></tr>
+              <tr><td>15</td><td>Memahami dasar fotografi</td><td>Pengantar Fotografi</td><td>Menjelaskan fungsi dasar fotografi</td><td>C1</td><td>24</td></tr>
+              <tr><td>16</td><td>Menggunakan kamera & lensa</td><td>Kamera & Lensa</td><td>Mengidentifikasi jenis lensa fotografi</td><td>C1</td><td>25</td></tr>
+              <tr><td>17</td><td>Mengenal kamera DSLR</td><td>Kamera DSLR</td><td>Menyebutkan bagian-bagian utama DSLR</td><td>C1</td><td>26</td></tr>
+              <tr><td>18</td><td>Menggunakan alat bantu fotografi</td><td>Alat Indoor & Outdoor</td><td>Menentukan alat bantu fotografi</td><td>C2</td><td>27</td></tr>
+              <tr><td>19</td><td>Mengaplikasikan teknik foto</td><td>Teknik & Komposisi</td><td>Menjelaskan komposisi rule of thirds</td><td>C2</td><td>28</td></tr>
+              <tr><td rowspan="2">20</td><td rowspan="2">Mengatur pencahayaan kamera</td><td>Pencahayaan & ISO</td><td>Menjelaskan hubungan pencahayaan dan ISO</td><td>C2</td><td>29</td></tr>
+              <tr><td>Pencahayaan & ISO</td><td>Menjelaskan pengaruh ISO terhadap hasil foto</td><td>C2</td><td>30</td></tr>
+            </tbody>`;
+    } else if (selectedMapel === "informatika") {
+      tableTitle = "Informatika";
+      tableClass = "table-info"; // Class untuk Bootstrap thead
+      tableHTML = `
+            <tbody>
+              <tr><td>1</td><td>Berpikir logis dan sistematis</td><td>Pola Berpikir</td><td>Menentukan pola dalam suatu permasalahan</td><td>C2</td><td>1</td></tr>
+              <tr><td>2</td><td>Menerapkan logika proposisi</td><td>Logika Proposisi</td><td>Mengidentifikasi jenis pernyataan logika</td><td>C1</td><td>2</td></tr>
+              <tr><td>3</td><td>Menerapkan logika matematika</td><td>Logika Matematika</td><td>Menentukan nilai kebenaran suatu pernyataan logika</td><td>C2</td><td>3</td></tr>
+              <tr><td>4</td><td>Menerapkan metode penalaran</td><td>Metode Penalaran</td><td>Mengidentifikasi bentuk penalaran induktif atau deduktif</td><td>C2</td><td>4</td></tr>
+              <tr><td>5</td><td>Menyimpulkan informasi dari data</td><td>Inferensi</td><td>Menentukan kesimpulan dari pernyataan yang diberikan</td><td>C3</td><td>5</td></tr>
+              <tr><td>6</td><td>Mengubah bilangan antar basis</td><td>Konversi Bilangan</td><td>Mengubah bilangan desimal ke biner</td><td>C3</td><td>6</td></tr>
+              <tr><td>7</td><td>Menerapkan algoritma sederhana</td><td>Berpikir Algoritmik</td><td>Menentukan langkah-langkah algoritmik dari masalah</td><td>C3</td><td>7</td></tr>
+              <tr><td>8</td><td>Menggunakan Microsoft Word</td><td>Word 365</td><td>Menentukan fitur Word untuk menyisipkan gambar</td><td>C1</td><td>8</td></tr>
+              <tr><td>9</td><td>Menggunakan Microsoft Excel</td><td>Excel 365</td><td>Menggunakan fungsi IF di Excel</td><td>C3</td><td>9</td></tr>
+              <tr><td>10</td><td>Membuat presentasi</td><td>PowerPoint 365</td><td>Mengidentifikasi fitur transisi dalam slide</td><td>C1</td><td>10</td></tr>
+              <tr><td>11</td><td>Menggunakan media daring</td><td>Komunikasi Daring</td><td>Memilih platform komunikasi daring yang tepat</td><td>C2</td><td>11</td></tr>
+              <tr><td>12</td><td>Menyimpan data secara online</td><td>Teknologi Cloud</td><td>Menjelaskan manfaat penyimpanan cloud</td><td>C2</td><td>12</td></tr>
+              <tr><td>13</td><td>Mendesain grafis dasar</td><td>Teknik Grafis & Video</td><td>Menentukan software editing video</td><td>C2</td><td>13</td></tr>
+              <tr><td>14</td><td>Mengenal logika digital</td><td>Gerbang Logika</td><td>Menentukan output dari gerbang logika AND</td><td>C2</td><td>14</td></tr>
+              <tr><td>15</td><td>Mengenal mikrokontroler</td><td>Mikrokontroler</td><td>Menjelaskan fungsi mikrokontroler dalam sistem tertanam</td><td>C2</td><td>15</td></tr>
+              <tr><td>16</td><td>Mengenal organisasi komputer</td><td>Arsitektur Komputer</td><td>Menjelaskan peran CPU</td><td>C1</td><td>16</td></tr>
+              <tr><td>17</td><td>Mengidentifikasi perangkat keras</td><td>Hardware Komputer</td><td>Mengelompokkan perangkat input dan output</td><td>C2</td><td>17</td></tr>
+              <tr><td>18</td><td>Mengidentifikasi perangkat lunak</td><td>Software Komputer</td><td>Membedakan software sistem dan aplikasi</td><td>C2</td><td>18</td></tr>
+              <tr><td>19</td><td>Memahami dasar jaringan komputer</td><td>Teknologi Jaringan</td><td>Menentukan fungsi switch dan hub</td><td>C2</td><td>19</td></tr>
+              <tr><td>20</td><td>Mengenal komponen jaringan</td><td>Komponen Jaringan</td><td>Mengidentifikasi jenis kabel jaringan</td><td>C2</td><td>20</td></tr>
+              <tr><td>21</td><td>Memahami protokol jaringan</td><td>Protokol Jaringan</td><td>Menjelaskan fungsi protokol TCP/IP</td><td>C2</td><td>21</td></tr>
+              <tr><td>22</td><td>Menggunakan alamat IP</td><td>IP Address</td><td>Menentukan jenis IP address kelas C</td><td>C2</td><td>22</td></tr>
+              <tr><td>23</td><td>Mengetahui topologi jaringan</td><td>Topologi Jaringan</td><td>Mengidentifikasi jenis topologi jaringan</td><td>C1</td><td>23</td></tr>
+              <tr><td>24</td><td>Menggunakan layanan jaringan</td><td>Layanan Jaringan</td><td>Menentukan contoh layanan berbasis jaringan</td><td>C2</td><td>24</td></tr>
+              <tr><td>25</td><td>Mengenal bahasa Java</td><td>Java Introduction</td><td>Menjelaskan manfaat Java sebagai OOP</td><td>C1</td><td>25</td></tr>
+              <tr><td>26</td><td>Menulis struktur program Java</td><td>Struktur Java</td><td>Mengidentifikasi struktur dasar Java</td><td>C2</td><td>26</td></tr>
+              <tr><td>27</td><td>Menentukan tipe data</td><td>Tipe Data & Variabel</td><td>Menentukan tipe data dari suatu nilai</td><td>C2</td><td>27</td></tr>
+              <tr><td>28</td><td>Mengolah input keyboard</td><td>Input Data</td><td>Menuliskan sintaks pengambilan input di Java</td><td>C3</td><td>28</td></tr>
+              <tr><td>29</td><td>Menggunakan operator Java</td><td>Operasi Java</td><td>Menentukan hasil dari ekspresi operator aritmatika</td><td>C2</td><td>29</td></tr>
+              <tr><td>30</td><td>Menggunakan if-else</td><td>Percabangan</td><td>Memahami logika if-else dalam kode Java</td><td>C3</td><td>30</td></tr>
+              <tr><td>31</td><td>Menggunakan perulangan</td><td>Perulangan</td><td>Mengidentifikasi output dari loop for</td><td>C3</td><td>31</td></tr>
+              <tr><td>32</td><td>Memahami method Java</td><td>Method Java</td><td>Menentukan parameter dalam method</td><td>C2</td><td>32</td></tr>
+              <tr><td>33</td><td>Menggunakan array</td><td>Array</td><td>Menentukan output dari array satu dimensi</td><td>C3</td><td>33</td></tr>
+              <tr><td>34</td><td>Menerapkan praktik lintas bidang</td><td>Praktik Lintas Bidang</td><td>Mengintegrasikan Java dalam studi kasus sederhana</td><td>C4</td><td>34</td></tr>
+              <tr><td>35</td><td>Menganalisis data dan dampaknya</td><td>Analisis Data & Sosial</td><td>Menjelaskan dampak sosial dari data digital</td><td>C2</td><td>35</td></tr>
+            </tbody>`;
+    }
+
+    const fullTable = `
+      <h5 class="text-center kisi-title mt-4">Kisi-Kisi: ${tableTitle}</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+          <thead class="${tableClass}">
+            <tr>
+              <th>No</th>
+              <th>Kompetensi Dasar</th>
+              <th>Materi</th>
+              <th>Indikator Soal</th>
+              <th>Level Kognitif</th>
+              <th>No Soal</th>
+            </tr>
+          </thead>
+          ${tableHTML}
+        </table>
+      </div>`;
+
+    kisiContentContainer.innerHTML = fullTable;
+    if (selectedMapel) {
+        kisiContentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+</script>
+
+</body>
+</html>
