@@ -17,13 +17,15 @@
       --table-header-bg: #004a99; /* Warna header tabel sedikit lebih gelap dari primary */
       --table-hover-bg: rgba(0, 86, 179, 0.08);
       --table-stripe-bg: rgba(0, 86, 179, 0.03);
+      --success-bg: #d1e7dd; /* Latar belakang untuk pesan sukses */
+      --success-text: #0f5132; /* Warna teks untuk pesan sukses */
     }
 
     body {
-      background: linear-gradient(135deg, #e9ecef, #dee2e6); /* Latar belakang lebih netral */
+      background: linear-gradient(135deg, #e9ecef, #dee2e6);
       min-height: 100vh;
       display: flex;
-      align-items: flex-start; /* Align items to start for long content */
+      align-items: flex-start;
       justify-content: center;
       padding: 20px;
       font-family: 'Roboto', 'Segoe UI', sans-serif;
@@ -31,9 +33,9 @@
     }
 
     .container-custom {
-      max-width: 950px; /* Sedikit lebih lebar untuk tabel */
+      max-width: 950px;
       width: 100%;
-      margin-top: 20px; /* Margin atas untuk body align-items: flex-start */
+      margin-top: 20px;
       margin-bottom: 20px;
     }
 
@@ -78,7 +80,7 @@
       box-shadow: 0 0 0 0.25rem rgba(0, 86, 179, 0.25);
     }
 
-    .btn { /* General button styling */
+    .btn {
       border-radius: 25px;
       font-weight: 600;
       padding: 10px 22px;
@@ -108,7 +110,7 @@
       background-color: var(--light-bg);
       border-radius: var(--border-radius);
       padding: 12px 20px;
-      margin-bottom: 25px; /* Lebih banyak spasi */
+      margin-bottom: 25px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.07);
     }
     #userGreeting {
@@ -119,60 +121,52 @@
 
     h3 { color: var(--dark-text); font-weight: 600;}
     h4.text-muted { color: var(--secondary-color) !important; }
-    h5.kisi-title { /* Class baru untuk judul kisi-kisi */
+    h5.kisi-title {
         color: var(--primary-color);
         font-weight: 700;
-        margin-bottom: 0.75rem; /* Spasi bawah judul */
+        margin-bottom: 0.75rem;
     }
 
-
-    /* --- Start Perbaikan Tampilan Tabel Kisi-Kisi --- */
     #kisiContentContainer .table-responsive {
-        border-radius: 10px; /* Agar shadow terlihat baik */
-        overflow-x: auto; /* Pastikan scroll horizontal tetap ada jika perlu */
+        border-radius: 10px;
+        overflow-x: auto;
     }
 
     #kisiContentContainer .table {
-      margin-bottom: 0; /* Hapus margin bawah default karena container yang mengatur */
-      border-radius: 10px; /* Radius pada tabel */
-      overflow: hidden; /* Penting agar border-radius pada thead/table bekerja */
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* Shadow halus untuk tabel */
-      border-collapse: separate; /* Atau 'collapse', tapi separate lebih baik untuk border-radius table */
+      margin-bottom: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      border-collapse: separate;
       border-spacing: 0;
-    }
-
-    #kisiContentContainer thead {
-      /* border-bottom: 3px solid var(--primary-color); Garis bawah yang lebih tebal */
     }
 
     #kisiContentContainer thead th {
       background-color: var(--table-header-bg) !important;
       color: white !important;
       font-weight: 600;
-      padding: 0.9rem 0.8rem; /* Padding yang nyaman */
+      padding: 0.9rem 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      font-size: 0.8em; /* Ukuran font header */
-      border-top: none; /* Hilangkan border atas default jika ada */
-      border-bottom: 1px solid rgba(255,255,255,0.2) !important; /* Garis antar header cell */
+      font-size: 0.8em;
+      border-top: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2) !important;
     }
-    #kisiContentContainer thead th:first-child { border-top-left-radius: 10px; } /* Rounded corner kiri atas */
-    #kisiContentContainer thead th:last-child { border-top-right-radius: 10px; } /* Rounded corner kanan atas */
+    #kisiContentContainer thead th:first-child { border-top-left-radius: 10px; }
+    #kisiContentContainer thead th:last-child { border-top-right-radius: 10px; }
 
-
-    /* Subject-specific headers */
     #kisiContentContainer .table-warning thead th {
         background-color: #ffc107 !important; color: var(--dark-text) !important;
     }
     #kisiContentContainer .table-info thead th {
-        background-color: #17a2b8 !important; color: white !important; /* Warna info lebih gelap */
+        background-color: #17a2b8 !important; color: white !important;
     }
 
     #kisiContentContainer tbody td {
       padding: 0.8rem 0.8rem;
       font-size: 0.88em;
       vertical-align: middle;
-      border-top: 1px solid #dee2e6; /* Garis horizontal antar baris */
+      border-top: 1px solid #dee2e6;
     }
 
     #kisiContentContainer .table-striped tbody tr:nth-of-type(odd) {
@@ -181,20 +175,34 @@
 
     #kisiContentContainer .table-hover tbody tr:hover {
       background-color: var(--table-hover-bg);
-      /* color: var(--primary-color); Ganti warna teks jika diinginkan, tapi bisa jadi kurang kontras */
       transition: background-color 0.2s ease;
     }
-    /* --- End Perbaikan Tampilan Tabel Kisi-Kisi --- */
+
+    /* Gaya untuk pesan "Akses Diberikan" */
+    #accessGrantedMessage {
+      background-color: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid var(--success-text);
+      border-radius: var(--border-radius);
+      padding: 15px;
+      margin-top: 25px;
+      text-align: center;
+      font-weight: 500;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #accessGrantedMessage i {
+      margin-right: 8px;
+    }
 
     @media (max-width: 768px) {
       .card { padding: 20px !important; }
       h3 { font-size: 1.4rem; }
       h4 { font-size: 1.0rem; }
       #kisiContentContainer .table, #kisiContentContainer tbody td, #kisiContentContainer thead th {
-        font-size: 0.75rem; /* Font lebih kecil untuk tabel di mobile */
+        font-size: 0.75rem;
       }
       #kisiContentContainer thead th, #kisiContentContainer tbody td {
-        padding: 0.6rem 0.4rem; /* Padding lebih kecil di mobile */
+        padding: 0.6rem 0.4rem;
       }
       .btn { padding: 8px 15px; font-size: 0.9rem;}
       #userGreeting {font-size: 1rem;}
@@ -260,6 +268,13 @@
 
       <div id="kisiContentContainer" class="mt-4">
          </div>
+
+      <div id="accessGrantedMessage" class="hidden fade-in">
+        <i class="fas fa-check-circle"></i> Terima kasih telah membaca. Akses selanjutnya telah diberikan!
+        <div class="mt-3">
+            <button class="btn btn-info" onclick="alert('Tombol aksi diklik!')"><i class="fas fa-arrow-right"></i> Lanjutkan ke Tahap Berikutnya</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -277,13 +292,15 @@
   const kisiForm = document.getElementById("kisiForm");
   const mapelSelect = document.getElementById("mapel");
   const kisiContentContainer = document.getElementById("kisiContentContainer");
+  const accessGrantedMessage = document.getElementById("accessGrantedMessage"); // Elemen baru
 
-  // Dummy user data (gantilah dengan sistem otentikasi yang sebenarnya)
   const validUsers = {
-    "ruli": "12345", // Contoh user: Ruli, password: 12345
+    "ruli": "12345",
     "guru": "guru123",
     "admin": "adminpass"
   };
+
+  let hasScrolledToEnd = false; // Flag untuk memastikan pesan hanya muncul sekali per tampilan kisi-kisi
 
   loginForm.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -293,7 +310,6 @@
     if (validUsers[username.toLowerCase()] === password) {
       loginAlert.classList.add("d-none");
       userGreetingElement.textContent = `Halo, ${username}!`;
-
       loginCard.classList.add("hidden");
       mainContent.classList.remove("hidden");
       mainContent.classList.add("fade-in");
@@ -309,16 +325,20 @@
     mainContent.classList.remove("fade-in");
     loginCard.classList.remove("hidden");
     loginCard.classList.add("fade-in");
-
     kisiContentContainer.innerHTML = "";
     mapelSelect.value = "";
     passwordInput.value = "";
     loginAlert.classList.add("d-none");
+    accessGrantedMessage.classList.add("hidden"); // Sembunyikan pesan saat logout
+    hasScrolledToEnd = false; // Reset flag
   });
 
   kisiForm.addEventListener("submit", function(e) {
     e.preventDefault();
     const selectedMapel = mapelSelect.value;
+    accessGrantedMessage.classList.add("hidden"); // Sembunyikan pesan setiap kali kisi-kisi baru ditampilkan
+    hasScrolledToEnd = false; // Reset flag setiap kali kisi-kisi baru ditampilkan
+
     if (!selectedMapel) {
         kisiContentContainer.innerHTML = '<p class="text-center text-danger my-4">Silakan pilih mata pelajaran terlebih dahulu.</p>';
         return;
@@ -326,11 +346,11 @@
 
     let tableTitle = "";
     let tableHTML = "";
-    let tableClass = ""; // Untuk warna header berbeda per mapel
+    let tableClass = "";
 
     if (selectedMapel === "dddkv") {
       tableTitle = "Dasar-dasar Desain Komunikasi Visual";
-      tableClass = "table-warning"; // Class untuk Bootstrap thead
+      tableClass = "table-warning";
       tableHTML = `
             <tbody>
               <tr><td rowspan="2">1</td><td rowspan="2">Memahami proses bisnis di bidang DKV</td><td>Proses Bisnis DKV</td><td>Mengidentifikasi tahapan proses bisnis</td><td>C1</td><td>1</td></tr>
@@ -366,7 +386,7 @@
             </tbody>`;
     } else if (selectedMapel === "informatika") {
       tableTitle = "Informatika";
-      tableClass = "table-info"; // Class untuk Bootstrap thead
+      tableClass = "table-info";
       tableHTML = `
             <tbody>
               <tr><td>1</td><td>Berpikir logis dan sistematis</td><td>Pola Berpikir</td><td>Menentukan pola dalam suatu permasalahan</td><td>C2</td><td>1</td></tr>
@@ -427,9 +447,40 @@
 
     kisiContentContainer.innerHTML = fullTable;
     if (selectedMapel) {
-        kisiContentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Tidak langsung scroll ke konten, biarkan user scroll manual
+        // kisiContentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    // Tambahkan event listener untuk scroll setelah tabel dimuat
+    // Kita akan memantau scroll pada window karena .table-responsive mungkin tidak selalu memiliki scrollbar sendiri
+    // jika kontennya tidak cukup panjang, namun kartu utama bisa di-scroll.
+    window.addEventListener('scroll', checkScrollPosition);
   });
+
+  // Fungsi untuk mengecek posisi scroll
+  function checkScrollPosition() {
+    if (hasScrolledToEnd) return; // Jika sudah muncul, jangan cek lagi
+
+    // Cek apakah elemen kisiContentContainer ada dan terlihat
+    const tableElement = kisiContentContainer.querySelector('.table');
+    if (!tableElement || kisiContentContainer.offsetParent === null) {
+      window.removeEventListener('scroll', checkScrollPosition); // Hapus listener jika tabel tidak ada/tersembunyi
+      return;
+    }
+
+    // Hitung posisi bawah dari tabel relatif terhadap viewport
+    const rect = tableElement.getBoundingClientRect();
+    const bottomOfTableVisible = rect.bottom <= window.innerHeight + 100; // +100px sebagai buffer
+
+    // Atau, cek jika user sudah scroll ke bagian paling bawah halaman (jika halaman panjang)
+    const scrolledToPageBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100; // -100px buffer
+
+    if (bottomOfTableVisible || scrolledToPageBottom) {
+      accessGrantedMessage.classList.remove("hidden");
+      hasScrolledToEnd = true; // Set flag agar tidak muncul berulang kali
+      window.removeEventListener('scroll', checkScrollPosition); // Hapus listener setelah pesan muncul
+    }
+  }
+
 </script>
 
 </body>
